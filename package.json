@@ -1,4 +1,16 @@
-"dependencies": {
-  "express": "^4.19.2",
-  "basic-ftp": "^5.0.3"
+{
+  "name": "proxy-safar",
+  "version": "1.0.0",
+  "description": "Proxy FTP -> HTTPS per listino Safar",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "dependencies": {
+    "express": "^4.19.2",
+    "basic-ftp": "^5.0.3"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
 }
