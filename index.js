@@ -1,23 +1,13 @@
-import express from "express";
+const express = require("express");
 
 const app = express();
 const PORT = process.env.PORT || 3000;
 
 app.get("/", (req, res) => {
-  res.send("✅ Server attivo - Test base su Render");
-});
-
-// cattura errori non gestiti
-process.on("uncaughtException", err => {
-  console.error("❌ Errore non gestito:", err);
-});
-
-process.on("unhandledRejection", err => {
-  console.error("❌ Promessa non gestita:", err);
+  res.send("✅ Server attivo - Test base su Render (CommonJS)");
 });
 
 app.listen(PORT, () => {
-  console.log(`🚀 Server attivo sulla porta ${PORT}`);
-  // Mantieni il processo vivo artificialmente
+  console.log(`🚀 Server in ascolto sulla porta ${PORT}`);
   setInterval(() => console.log("⏳ keep-alive"), 30000);
 });
