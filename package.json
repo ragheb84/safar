@@ -1,14 +1,12 @@
 {
   "name": "proxy-safar",
   "version": "1.0.0",
-  "description": "Proxy FTP Safar → HTTP CSV",
   "main": "index.js",
   "type": "module",
-  "dependencies": {
-    "express": "^4.19.2",
-    "basic-ftp": "^5.0.3"
-  },
   "scripts": {
     "start": "node index.js"
+  },
+  "dependencies": {
+    "express": "^4.19.2"
   }
 }
