@@ -1,17 +1,46 @@
-try {
-  const express = require("express");
-  const app = express();
-  const PORT = process.env.PORT || 3000;
+const express = require("express");
+const ftp = require("basic-ftp");
 
-  app.get("/", (req, res) => {
-    res.send("✅ Render server attivo - test debug");
-  });
+const app = express();
+const PORT = process.env.PORT || 3000;
 
-  app.listen(PORT, () => {
-    console.log(`🚀 Server in ascolto sulla porta ${PORT}`);
-    setInterval(() => console.log("⏳ keep-alive"), 30000);
-  });
-} catch (err) {
-  console.error("❌ Errore di avvio:", err);
-  process.exit(1);
-}
+app.get("/", async (req, res) => {
+  if (req.query.key !== "LYMPHEA123") {
+    return res.status(403).send("Accesso non autorizzato");
+  }
+
+  const client = new ftp.Client();
+  client.ftp.verbose = false;
+
+  try {
+    await client.access({
+      host: "85.39.189.15",
+      user: "listino_ff",
+      password: "FcpoE3qRs6",
+      secure: false,
+      timeout: 20000
+    });
+
+    let text = "";
+    const writable = {
+      write: (chunk) => {
+        text += chunk.toString("utf8");
+      },
+      end: () => {}
+    };
+
+    await client.downloadTo(writable, "safar_pe.txt");
+
+    text = text.replace(/\|/g, ";");
+    res.set("Content-Type", "text/plain; charset=utf-8");
+    res.send(text);
+
+  } catch (err) {
+    console.error("❌ Errore FTP:", err.message);
+    res.status(500).send("Errore FTP: " + err.message);
+  } finally {
+    client.close();
+  }
+});
+
+app.listen(PORT, () => console.log(`🚀 Proxy Safar attivo sulla porta ${PORT}`));
