@@ -1,5 +1,5 @@
 {
-  "name": "safar",
+  "name": "proxy-safar",
   "version": "1.0.0",
   "description": "Proxy FTP Safar → HTTP CSV",
   "main": "index.js",
